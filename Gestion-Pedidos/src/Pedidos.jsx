@@ -1,3 +1,4 @@
+import './Diseño/Pedidos.css'
 let Pedidos =({ID, Cliente, Fecha, Estado, NombreProducto, CantidadProducto, Precio})=>{
     return(
         <>

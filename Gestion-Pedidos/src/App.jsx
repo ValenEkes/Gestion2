@@ -1,9 +1,20 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Formulario from './FormularioPedidos'
 import Listado from './Listado'
 function App() {
   const [pedidos, setPedidos] = useState([])
+
+  useEffect(() => {
+    const savedPedidos = localStorage.getItem('pedidos');
+    if (savedPedidos) {
+      setPedidos(JSON.parse(savedPedidos));
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+  }, [pedidos]);
 
   return (
     <>
