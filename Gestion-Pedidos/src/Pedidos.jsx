@@ -2,6 +2,7 @@ import './Diseño/Pedidos.css'
 let Pedidos =({ID, Cliente, Fecha, Estado, NombreProducto, CantidadProducto, Precio})=>{
     return(
         <>
+   
         <div class="PedidosLista">
         <div>
         <p>ID</p>

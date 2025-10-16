@@ -1,5 +1,7 @@
 import { useState } from 'react';
-import { Productos } from "./Productos";
+import { Productos, Estados } from "./Productos";
+import "./Diseño/Formulario.css";
+
 let Formulario=({pedidos,setPedidos})=>{
     const [precio, setPrecio] = useState(0);
 
@@ -18,40 +20,49 @@ let Formulario=({pedidos,setPedidos})=>{
             NombreProducto:e.target.NombreProducto.value,
             CantidadProducto: parseInt(e.target.CantidadProducto.value),
             Precio: precio,
-            Estado: 'Pendiente'
+            Estado: e.target.Estado.value
         }
         setPedidos([...pedidos,Pedido])
     }
     return(
-        <>
+        <div className="formulario">
         <h2>Crear Pedidos</h2>
         <form onSubmit={agregarPedido}>
-        <div>
-        <p>Nombre</p>
-        <input type="text" name="NombreCliente" />
+        <div className="form-group">
+        <label htmlFor="NombreCliente">Nombre</label>
+        <input type="text" id="NombreCliente" name="NombreCliente" required />
         </div>
-        <div>
-        <p>Fecha</p>
-        <input type="date" name="Fecha" />
+        <div className="form-group">
+        <label htmlFor="Fecha">Fecha</label>
+        <input type="date" id="Fecha" name="Fecha" required />
         </div>
-        <div>
-        <p>Nombre Productos</p>
-        <select name="NombreProducto" onChange={handleProductoChange}>
+        <div className="form-group">
+        <label htmlFor="NombreProducto">Nombre Productos</label>
+        <select id="NombreProducto" name="NombreProducto" onChange={handleProductoChange} required>
             <option value="">Selecciona un producto</option>
             {Productos.map((e)=>(
              <option key={e.id} value={e.nombre}>
                 {e.nombre}
-             </option>   
+             </option>
             ))}
         </select>
         </div>
-        <div>
-        <p>Cantidad</p>
-        <input type="number" name="CantidadProducto"/>
+        <div className="form-group">
+        <label htmlFor="CantidadProducto">Cantidad</label>
+        <input type="number" id="CantidadProducto" name="CantidadProducto" min="1" required/>
         </div>
-        <button>Agregar Pedido</button>
+        <div className="form-group">
+        <label htmlFor="Estado">Tipo de Estado</label>
+        <select id="Estado" name="Estado" required>
+            <option value="">Selecciona un estado</option>
+            {Estados.map((e)=>(
+                <option key={e.id} value={e.estado}>{e.estado}</option>
+            ))}
+        </select>
+        </div>
+        <button type="submit" className="btn-submit">Agregar Pedido</button>
         </form>
-        </>
+        </div>
     )
 }
 export default Formulario
