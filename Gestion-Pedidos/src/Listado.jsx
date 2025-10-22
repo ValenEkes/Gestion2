@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import Pedidos from "./Pedidos";
 import { Estados } from "./Productos";
+import { PedidosContext } from './PedidosContext';
 import "./Diseño/Listado.css"
-let Listado=({pedidos, setPedidos})=>{
+let Listado=()=>{
+    const { pedidos, setPedidos } = useContext(PedidosContext);
     const [filtroEstado, setFiltroEstado] = useState("");
 
     const pedidosFiltrados = filtroEstado ? pedidos.filter(p => p.Estado === filtroEstado) : pedidos;

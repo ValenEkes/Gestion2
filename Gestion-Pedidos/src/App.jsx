@@ -1,32 +1,24 @@
-import { useState, useEffect } from 'react'
+import {Routes,Route,HashRouter} from 'react-router-dom'
 import './App.css'
-import Formulario from './FormularioPedidos'
+import Home from './Home'
+import Layout from './Layout'
 import Listado from './Listado'
+import CrearPedido from './CrearPedido'
+import { PedidosProvider } from './PedidosContext'
+
 function App() {
-  const [pedidos, setPedidos] = useState([])
-
-  useEffect(() => {
-    const savedPedidos = localStorage.getItem('pedidos');
-    if (savedPedidos) {
-      setPedidos(JSON.parse(savedPedidos));
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem('pedidos', JSON.stringify(pedidos));
-  }, [pedidos]);
-
   return (
-    <>
-     <h1>Pedidos Usuario</h1>
-     <div>
-     <Formulario pedidos={pedidos} setPedidos={setPedidos}></Formulario>
-     </div>
-     <div>
-      <Listado pedidos={pedidos} setPedidos={setPedidos}></Listado>
-     </div>
-    </>
+    <PedidosProvider>
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Layout/>}>
+            <Route index element={<Home/>}></Route>
+            <Route path="/crear-pedido" element={<CrearPedido/>}></Route>
+            <Route path="/listado" element={<Listado/>}></Route>
+          </Route>
+        </Routes>
+      </HashRouter>
+    </PedidosProvider>
   )
 }
-
 export default App
